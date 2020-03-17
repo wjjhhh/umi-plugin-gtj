@@ -1,6 +1,6 @@
 {
   "name": "umi-plugin-gtj",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Output which address is your umi-app running at with qrcode.",
   "authors": {
     "name": "wjj",
