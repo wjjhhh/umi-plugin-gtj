@@ -12,8 +12,7 @@ export default (api, {
     }
   })
 
-  api.onDevCompileDone((a) => {
-    // console.log(a)
+  api.onDevCompileDone(() => {
     const fs = require('fs')
     const readline = require('readline')
     const path = require('path')
@@ -24,7 +23,6 @@ export default (api, {
     const separator = `${word}[` // 分隔符
     const suffix = ['.js', '.jsx'] // 后缀白名单
     let readNum = 0
-    // const ignore = ['./pages']
     console.log('-----start-----')
 
     function readFileToObj(fReadName, value, callback) {
@@ -135,9 +133,6 @@ export default (api, {
                 } catch (e) {
                   // 翻车
                   console.warn(e)
-                  // errDeal(resolve).then(res => {
-                  //   resolve()
-                  // })
                 }
               }
             })
@@ -152,40 +147,7 @@ export default (api, {
           console.log('finish:', Date.now() - startTime)
         })
       })
-
-
     }
-
-    // 异常处理
-    function errDeal(resolve) {
-      const tips = '出现异常情况1.重新全量生成2.放弃\n'
-      return new Promise(resolve2 => {
-        resolve2(resolve)
-        // const r1 = readline.createInterface({
-        //   input: process.stdin,
-        //   output: process.stdout,
-        // })
-        // r1.question(tips, (answer) => {
-        //   r1.close()
-        //   if (answer == 1) {
-        //     console.log('重新')
-        //     resolve2(resolve)
-        //     // process.exit()
-        //   } else if (answer == 2) {
-        //     console.log('放弃')
-        //     // process.exit()
-        //     api.restart('why')
-        //   } else {
-        //     // resolve()
-        //     errDeal(resolve)
-        //   }
-        // })
-      }).then(r => {
-        return resolve
-      })
-    }
-
-
     run()
 
   });
