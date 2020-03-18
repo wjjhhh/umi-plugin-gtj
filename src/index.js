@@ -22,7 +22,7 @@ export default (api, {
     const obj = {}
     const separator = `${word}[` // 分隔符
     const suffix = ['.js', '.jsx'] // 后缀白名单
-    let readNum = 0
+    let readNum = 0 // 计数还剩未读的文件数
     console.log('-----start-----')
 
     function readFileToObj(fReadName, value, callback) {
@@ -60,6 +60,7 @@ export default (api, {
         }
       })
       objReadline.on('close', () => {
+        // 文件都读过了，写进生成文件
         if (--readNum === 0) {
           let result = JSON.stringify(obj, null, 2)
           fs.writeFile(output, result, err => {
@@ -97,10 +98,8 @@ export default (api, {
                   return fileDisplay(fileDir, value, checkEnd)
                 }
                 else if (status.isFile()) {
-                  // 后缀不符合的跳过
-                  if (!suffix.includes(path.extname(fileDir))) {
-                    // return
-                  } else {
+                  // 后缀不符合的跳过，并计数加一
+                  if (suffix.includes(path.extname(fileDir))) {               
                     readNum++
                     readFileToObj(fileDir, value)
                   }
